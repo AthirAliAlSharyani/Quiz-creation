@@ -12,8 +12,6 @@ import Button from "@/components/Button";
 import useQuiz from "./store";
 
 export default function Home() {
-  const quizConfig = useQuiz((state) => state.config);
-
   return (
     <section className="flex flex-col justify-center items-center my-10">
       <h1 className=" align-middle mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
