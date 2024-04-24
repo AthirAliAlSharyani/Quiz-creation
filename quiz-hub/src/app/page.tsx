@@ -12,6 +12,9 @@ import Button from "@/components/Button";
 import useQuiz from "./store";
 
 export default function Home() {
+  const quizConfig = useQuiz((state) => state.config);
+  const addNumberOfQuestion = useQuiz((state) => state.addNumberOfQuestion);
+  console.log(quizConfig, "here");
   return (
     <section className="flex flex-col justify-center items-center my-10">
       <h1 className=" align-middle mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
@@ -27,7 +30,7 @@ export default function Home() {
           </label>
           <input
             type="number"
-            defaultValue={10}
+            onChange={(e) => addNumberOfQuestion(e.target.value)}
             min={0}
             max={20}
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
