@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import { useQuiz } from "@/app/store";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,10 +8,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useQuiz } from "@/app/store";
 
+import { ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
-import { ChevronDownIcon } from "@radix-ui/react-icons";
 type CategoryType = {
   id: number;
   name: string;
@@ -43,7 +42,7 @@ export default function DropdownOptions() {
           <DropdownMenu>
             <DropdownMenuTrigger className="flex outline-none justify-between w-full">
               {config.category.name ? config.category.name : "SELECT CATEGORY"}{" "}
-              <ChevronDownIcon />
+              <ChevronDown />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="overflow-y-scroll">
               <DropdownMenuLabel>
@@ -69,7 +68,7 @@ export default function DropdownOptions() {
         <div className="px-7 py-4 border-gray-100 border-2 rounded-xl w-1/3 mx-4">
           <DropdownMenu>
             <DropdownMenuTrigger className="flex outline-none justify-between w-full">
-              {config.level ? config.level : "SELECT LEVEL"} <ChevronDownIcon />{" "}
+              {config.level ? config.level : "SELECT LEVEL"} <ChevronDown />{" "}
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuLabel>
@@ -91,7 +90,7 @@ export default function DropdownOptions() {
         <div className="px-7 py-4 border-gray-100 border-2 rounded-xl w-1/3 mx-4">
           <DropdownMenu>
             <DropdownMenuTrigger className="flex outline-none justify-between w-full">
-              {config.type ? config.type : "SELECT TYPE"} <ChevronDownIcon />{" "}
+              {config.type ? config.type : "SELECT TYPE"} <ChevronDown />{" "}
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuLabel>
