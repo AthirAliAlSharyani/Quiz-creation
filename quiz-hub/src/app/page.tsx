@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import DropOptions from "@/components/dropDownOption";
+import Button from "@/components/Button";
 
 export default function Home() {
   return (
@@ -33,7 +34,10 @@ export default function Home() {
             required
           />
         </div>
-        <DropOptions />
+        <div className="flex flex-col justify-center items-center">
+          <DropOptions />
+          <Button />
+        </div>
       </section>
     </section>
   );
