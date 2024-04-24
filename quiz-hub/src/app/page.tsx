@@ -1,4 +1,4 @@
-import Image from "next/image";
+"use client";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import DropOptions from "@/components/dropDownOption";
 import Button from "@/components/Button";
+import useQuiz from "./store";
 
 export default function Home() {
   return (
