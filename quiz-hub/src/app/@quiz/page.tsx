@@ -1,7 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import useQuiz from "../store";
-import { ShuffleIcon } from "@radix-ui/react-icons";
 
 export default function Quiz() {
   const [questions, setQuestion] = useState([]);
@@ -13,15 +12,13 @@ export default function Quiz() {
   useEffect(() => {
     async function getQuestion() {
       setLoading(true);
-      const { results } = await (
+      const results = await (
         await fetch(
           `https://opentdb.com/api.php?amount=${config.numberOfQuestion}&category=${config.category.id}&difficulty=${config.level}&type=${config.type}`
         )
-      )
-        // await fetch(
-        //   `https://opentdb.com/api.php?amount=${config.numberOfQuestion}&category=${config.category.id}difficulty=${config.level}type=${config.type}`
-        // )
-        .json();
+      ).json();
+      const data = await results.json();
+      console.log(data);
 
       let shuffleResults = results.map((e) => {
         let value = [...e.incorrect_answer, e.correct_answer]

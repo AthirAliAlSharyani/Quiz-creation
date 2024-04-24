@@ -27,7 +27,7 @@ const useQuiz = create((set) => ({
     set((state) => ({ config: { ...state.config, level: level } })),
   addNumberOfQuestion: (count: number) =>
     set((state) => ({
-      config: { ...state.config, addNumberOfQuestion: count },
+      config: { ...state.config, numberOfQuestion: count },
     })),
   addCategory: (id: number, name: string) =>
     set((state) => ({
