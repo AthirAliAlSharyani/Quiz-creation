@@ -24,18 +24,24 @@ const defaultConfig = {
 const useQuiz = create((set) => ({
   config: { ...defaultConfig },
   addLevel: (level: string) =>
-    set((state) => ({ config: { ...state.config, level: level } })),
+    set((state: { config: any }) => ({
+      config: { ...state.config, level: level },
+    })),
   addNumberOfQuestion: (count: number) =>
-    set((state) => ({
+    set((state: { config: any }) => ({
       config: { ...state.config, addNumberOfQuestion: count },
     })),
   addCategory: (id: number, name: string) =>
-    set((state) => ({
+    set((state: { config: any }) => ({
       config: { ...state.config, catrgory: { id: id, name: name } },
     })),
   addStatus: (status: string) =>
-    set((state) => ({ config: { ...state.config, status: status } })),
+    set((state: { config: any }) => ({
+      config: { ...state.config, status: status },
+    })),
   addScore: (score: number) =>
-    set((state) => ({ config: { ...state.config, score: score } })),
+    set((state: { config: any }) => ({
+      config: { ...state.config, score: score },
+    })),
 }));
 export default useQuiz;
