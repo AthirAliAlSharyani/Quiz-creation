@@ -5,6 +5,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 import Button from "@/components/Buttons";
+import DropOptions from "@/components/DropdownOptions";
 export default function Home() {
   return (
     <section className="flex flex-col justify-center items-center my-10 ">
@@ -16,7 +17,7 @@ export default function Home() {
         {/* Flowbite? */}
         <Input />
 
-        <DropdownMenuGroup />
+        <DropOptions />
         <div className=" flex items-center justify-center">
           <Button />
         </div>

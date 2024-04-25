@@ -22,10 +22,7 @@ export default function Quiz() {
   const [loading, setLoading] = useState(false);
   const changeStatus = useQuiz((state: any) => state.changeStatus);
   const config = useQuiz((state: any) => state.config);
-  const addLevel = useQuiz((state: any) => state.addLevel);
-  const addCategory = useQuiz((state: any) => state.addCategory);
-  const addType = useQuiz((state: any) => state.addType);
-  const addQuestionNumber = useQuiz((state: any) => state.addQuestionNumber);
+
   const setScore = useQuiz((state: any) => state.setScore);
 
   useEffect(() => {
@@ -46,7 +43,7 @@ export default function Quiz() {
         return e;
       });
       console.log(shuffledResults, "shuffeled");
-      setQuestions([...shuffledResults]);
+      // setQuestions([...shuffledResults]);
       setLoading(false);
     }
     getQuestions();
