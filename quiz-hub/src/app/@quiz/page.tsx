@@ -58,8 +58,12 @@ export default function Quiz() {
     <>
       <section className="justify-center flex flex-col  items-center mt-10">
         <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-          Question Number :{activeQuestion + 1}
-          <span className="text-blue-600 dark:text-blue-500"> #1</span>.
+          Question Number :
+          <span className="text-blue-600 dark:text-blue-500">
+            {" "}
+            {activeQuestion}
+          </span>
+          .
         </h1>
         <p className="text-xl">Score: {(result.score / 25) * 100}%</p>
         {!showResult ? (
@@ -107,7 +111,7 @@ export default function Quiz() {
         ) : (
           <>
             <p>
-              total questio: <span>{questions.length}</span>
+              total questio: <span>{questions.length - 1}</span>
             </p>
             <p>
               Correct Answers: <span>{result.correctAnswers}</span>
