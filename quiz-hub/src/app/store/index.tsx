@@ -1,45 +1,46 @@
-import { config } from "process";
 import { create } from "zustand";
 
 export type configType = {
-  numberOfQuiz: number;
+  numberOfQuestion: number;
   category: { id: number; name: string };
-  label: string;
+  level: string;
   type: string;
   status: string;
   score: number;
+  config?: any;
 };
 
 const defaultConfig = {
   numberOfQuestion: 10,
-  category: {
-    id: 0,
-    name: "",
-  },
+  category: { id: 0, name: "" },
+  level: "",
   type: "",
   status: "",
   score: 0,
 };
 
-const useQuiz = create((set) => ({
+export const useQuizConfig = create((set) => ({
   config: { ...defaultConfig },
   addLevel: (level: string) =>
-    set((state) => ({ config: { ...state.config, level: level } })),
-  addNumberOfQuestion: (count: number) =>
-    set((state) => ({
-      config: { ...state.config, addNumberOfQuestion: count },
-    })),
+    set((state: configType) => ({ config: { ...state.config, level: level } })),
   addCategory: (id: number, name: string) =>
-    set((state) => ({
+    set((state: configType) => ({
       config: { ...state.config, category: { id: id, name: name } },
     })),
-  addStatus: (status: string) =>
-    set((state) => ({ config: { ...state.config, status: status } })),
-  addScore: () =>
-    set((state) => ({
+  addType: (type: string) =>
+    set((state: configType) => ({ config: { ...state.config, type: type } })),
+  addQuestionNumber: (numberOfQuestion: string) =>
+    set((state: configType) => ({
+      config: { ...state.config, numberOfQuestion: numberOfQuestion },
+    })),
+  changeStatus: (status: string) =>
+    set((state: configType) => ({
+      config: { ...state.config, status: status },
+    })),
+  setScore: () =>
+    set((state: configType) => ({
       config: { ...state.config, score: state.config.score + 1 },
     })),
-  addType: (type: string) =>
-    set((state) => ({ config: { ...state.config, type: type } })),
+
+  removeConfig: () => set({ config: defaultConfig }),
 }));
-export default useQuiz;

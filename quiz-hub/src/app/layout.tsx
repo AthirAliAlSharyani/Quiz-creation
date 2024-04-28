@@ -1,8 +1,7 @@
 "use client";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { useQuizConfig } from "./store";
 import "./globals.css";
-import useQuiz from "./store";
+import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode;
   quiz: React.ReactNode;
 }) {
-  const config = useQuiz((state) => state.config);
+  const config = useQuizConfig((state: any) => state.config);
   let render = config.status ? quiz : children;
   return (
     <html lang="en">
