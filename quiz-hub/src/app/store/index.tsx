@@ -19,7 +19,7 @@ const defaultConfig = {
   score: 0,
 };
 
-export const useQuiz = create((set) => ({
+export const useQuizConfig = create((set) => ({
   config: { ...defaultConfig },
   addLevel: (level: string) =>
     set((state: configType) => ({ config: { ...state.config, level: level } })),

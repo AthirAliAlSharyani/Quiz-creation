@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useQuiz } from "../store";
+import { useQuizConfig } from "../store";
 import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -20,10 +20,15 @@ export default function Quiz() {
   const [questions, setQuestions] = useState<any>(null);
   const [answer, setAnswer] = useState("");
   const [loading, setLoading] = useState(false);
-  const changeStatus = useQuiz((state: any) => state.changeStatus);
-  const config = useQuiz((state: any) => state.config);
-
-  const setScore = useQuiz((state: any) => state.setScore);
+  const changeStatus = useQuizConfig((state: any) => state.changeStatus);
+  const config = useQuizConfig((state: any) => state.config);
+  const addLevel = useQuizConfig((state: any) => state.addLevel);
+  const addCategory = useQuizConfig((state: any) => state.addCategory);
+  const addType = useQuizConfig((state: any) => state.addType);
+  const addQuestionNumber = useQuizConfig(
+    (state: any) => state.addQuestionNumber
+  );
+  const setScore = useQuizConfig((state: any) => state.setScore);
 
   useEffect(() => {
     async function getQuestions() {
@@ -43,7 +48,7 @@ export default function Quiz() {
         return e;
       });
       console.log(shuffledResults, "shuffeled");
-      // setQuestions([...shuffledResults]);
+      setQuestions([...shuffledResults]);
       setLoading(false);
     }
     getQuestions();
