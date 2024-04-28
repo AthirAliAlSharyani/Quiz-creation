@@ -70,9 +70,9 @@ export default function Quiz() {
   return (
     <section className="flex flex-col justify-center items-center p-20 ">
       {questions?.length ? (
-        <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
+        <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-purple-900 md:text-5xl lg:text-6xl dark:text-white">
           Question No{" "}
-          <span className="text-blue-600 dark:text-blue-500">
+          <span className="text-purple-600 dark:text-purple-500">
             #{config.numberOfQuestion - questions.length + 1}
           </span>
           .
@@ -87,7 +87,7 @@ export default function Quiz() {
       )}
 
       {!loading && !!questions?.length && (
-        <p className="text-2xl ">Score: {config.score}</p>
+        <p className="text-2xl color-purple-500">Score: {config.score}</p>
       )}
 
       {!questions?.length && !loading && (
@@ -101,7 +101,7 @@ export default function Quiz() {
           />
           <h1 className="mt-10 text-center font-extrabold text-transparent text-8xl bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
             YOUR SCORE :{" "}
-            <span className="font-extrabold text-transparent text-10xl bg-clip-text bg-gradient-to-r from-blue-400 to-purple-600">
+            <span className="font-extrabold text-transparent text-10xl bg-clip-text bg-gradient-to-r from-pink-400 to-purple-600">
               {config.score}
             </span>
           </h1>
@@ -109,17 +109,21 @@ export default function Quiz() {
             onClick={() => {
               window.location.reload();
             }}
-            className="bg-white hover:bg-gray-100 my-10 text-gray-800 font-semibold py-2 px-10 border border-gray-400 rounded shadow"
+            className="bg-purple-600 hover:bg-purple-400 my-10 text-white font-semibold py-2 px-10 border border-purple-400 rounded shadow"
           >
             Start Over
           </button>
         </div>
       )}
 
-      {!questions && <p>loading...</p>}
+      {!questions && (
+        <p className="mt-10 text-center font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+          Prepare your mind to answer
+        </p>
+      )}
       {!!questions && !!questions?.length && (
         <section className="shadow-2xl my-10 p-10 w-[90%] rounded-lg flex flex-col justify-center items-center shadow-blue-200  ">
-          <h4 className="mb-4 text-center  text-xl font-extrabold leading-none tracking-tight md:text-2xl lg:text-4xl  text-blue-600 dark:text-blue-500">
+          <h4 className="mb-4 text-center  text-xl font-extrabold leading-none tracking-tight md:text-2xl lg:text-4xl  text-purple-600 dark:text-purple-500">
             {questions[0].question}
           </h4>
           <div className="flex justify-evenly items-center w-full my-20 flex-wrap">
@@ -129,11 +133,11 @@ export default function Quiz() {
                   key={e}
                   onClick={() => answerCheck(e)}
                   className={cn(
-                    "w-[40%] my-4 bg-white hover:bg-blue-600 hover:text-gray-100  text-gray-800 font-semibold py-4 px-4 shadow-blue-200   rounded-lg shadow-2xl",
+                    "w-[40%] my-4 bg-white hover:bg-purple-600 hover:text-purple-100  text-purple-800 font-semibold py-4 px-4 shadow-pruple-100   rounded-lg shadow-xl",
                     {
-                      "bg-blue-600": !!answer && answer === e,
+                      "bg-green-600": !!answer && answer === e,
                       "bg-red-600": !!answer && answer !== e,
-                      "hover:bg-blue-600": !!answer && answer === e,
+                      "hover:bg-green-600": !!answer && answer === e,
                       "hover:bg-red-600": !!answer && answer !== e,
                       "text-gray-200": !!answer,
                     }
@@ -147,7 +151,7 @@ export default function Quiz() {
 
           <button
             onClick={handleNext}
-            className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-10 border border-gray-400 rounded shadow"
+            className="bg-purple-600 hover:bg-purple-400 text-white font-semibold py-2 px-10 border border-purple-600 rounded shadow"
           >
             Next
           </button>

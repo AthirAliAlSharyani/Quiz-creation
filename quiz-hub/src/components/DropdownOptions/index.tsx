@@ -37,10 +37,9 @@ export default function DropdownOptions() {
   return (
     <>
       <section className="flex justify-evenly items-center py-5">
-        {/* Shadcdn */}
-        <div className="px-7 py-4 border-gray-100 border-2 rounded-xl w-1/3 mx-4">
+        <div className="px-7 py-4  border-purple-400 border-2 rounded-xl w-1/3 mx-4">
           <DropdownMenu>
-            <DropdownMenuTrigger className="flex outline-none justify-between w-full">
+            <DropdownMenuTrigger className="flex outline-none justify-between w-full  ">
               {config.category.name ? config.category.name : "SELECT CATEGORY"}{" "}
               <ChevronDown />
             </DropdownMenuTrigger>
@@ -65,7 +64,7 @@ export default function DropdownOptions() {
           </DropdownMenu>
         </div>
         {/* Shadcdn */}
-        <div className="px-7 py-4 border-gray-100 border-2 rounded-xl w-1/3 mx-4">
+        <div className="px-7 py-4  border-purple-400 border-2 rounded-xl w-1/3 mx-4">
           <DropdownMenu>
             <DropdownMenuTrigger className="flex outline-none justify-between w-full">
               {config.level ? config.level : "SELECT LEVEL"} <ChevronDown />{" "}
@@ -76,7 +75,7 @@ export default function DropdownOptions() {
                 {config.level ? config.level : "SELECT LEVEL"}
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              {["easy", "medium", "hard"].map((e) => {
+              {["Easy", "Medium", "Hard"].map((e) => {
                 return (
                   <DropdownMenuItem key={e} onClick={() => addLevel(e)}>
                     {e}
@@ -87,7 +86,7 @@ export default function DropdownOptions() {
           </DropdownMenu>
         </div>
         {/* Shadcdn */}
-        <div className="px-7 py-4 border-gray-100 border-2 rounded-xl w-1/3 mx-4">
+        <div className="px-7 py-4 border-purple-400 border-2 rounded-xl w-1/3 mx-4">
           <DropdownMenu>
             <DropdownMenuTrigger className="flex outline-none justify-between w-full">
               {config.type ? config.type : "SELECT TYPE"} <ChevronDown />{" "}
@@ -97,7 +96,7 @@ export default function DropdownOptions() {
                 {config.type ? config.type : "SELECT TYPE"}
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              {["boolean", "multiple"].map((e) => {
+              {["True/False", "Multiple Choices"].map((e) => {
                 return (
                   <DropdownMenuItem key={e} onClick={() => addType(e)}>
                     {e}
