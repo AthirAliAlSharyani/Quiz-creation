@@ -11,37 +11,68 @@ import {
 
 import useQuiz from "@/app/store";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
+import { quiz } from "@/app/questions/question";
 type CategoryType = {
   id: number;
   name: string;
 };
 
+type Question = {
+  id: number;
+  question_category: string;
+  question: string;
+  answers: string[];
+  correctAnswer: string;
+};
 const Type = ["True/False", "Multiple Choice"];
 const Level = ["Easy", "Medium", "Hard"];
 
 export default function DropOptions() {
-  const [categories, setCategories] = useState<CategoryType[]>([]);
-  const addCategory = useQuiz((state) => state.addCategory);
-  const config = useQuiz((state) => state.config);
+  const [questionCategory, setquestion_category] = useState<Question[]>([]);
+  const { questions } = quiz;
+  //const { question_category } = questions[questionCategory];
 
-  const addLevel = useQuiz((state) => state.addLevel);
-  const addType = useQuiz((state) => state.addType);
-
+  const [categories, setCategories] = useState<Question[]>([]);
+  const addCategory = useQuiz((state: any) => state.addCategory);
+  const config = useQuiz((state: any) => state.config);
+  // Effect to extract and set unique categories from questions on component mount
   useEffect(() => {
-    async function fetchCategory() {
-      const { trivia_categories } = await (
-        await fetch("https://opentdb.com/api_category.php")
-      ).json();
-      setCategories([...trivia_categories]);
-    }
-    fetchCategory();
-  });
+    const uniqueCategoryNames = Array.from(
+      new Set(questions.map((question) => question.question_category))
+    );
+    const uniqueCategories = uniqueCategoryNames.map((name) => ({
+      name: name,
+    }));
+    setCategories(uniqueCategories);
+  }, []);
+
+  const addLevel = useQuiz((state: any) => state.addLevel);
+  const addType = useQuiz((state: any) => state.addType);
+
+  // useEffect(() => {
+  //   async function fetchCategory() {
+  //     const { trivia_categories } = await (
+  //       await fetch("https://opentdb.com/api_category.php")
+  //     ).json();
+  //     setCategories([...trivia_categories]);
+  //   }
+  //   fetchCategory();
+  // });
+
+  const [selectedCategory, setSelectedCategory] = useState("");
+
+  // Handle change event from the dropdown
+  const handleCategoryChange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setSelectedCategory(event.target.value);
+  };
   return (
     <section className="flex justify-evenly items-center py-5 w-full">
       <div className="px-7 py-4 w-1/3 mx-4">
         <DropdownMenu>
           <DropdownMenuTrigger className="flex outline-none justify-between w-full px-4 py-3 rounded-lg shadow-md hover:bg-blue-500 hover:text-gray-100">
-            {config.category.name ? config.category.name : "SELECT CATEGORY "}{" "}
+            {!setSelectedCategory ? setSelectedCategory : "Select Category"}
             <ChevronDownIcon />
           </DropdownMenuTrigger>
 

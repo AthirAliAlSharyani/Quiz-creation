@@ -10,10 +10,14 @@ import {
 import DropOptions from "@/components/dropDownOption";
 import Button from "@/components/Button";
 import useQuiz from "./store";
+import { quiz } from "./questions/question";
+import { useState } from "react";
 
 export default function Home() {
-  const quizConfig = useQuiz((state) => state.config);
-  const addNumberOfQuestion = useQuiz((state) => state.addNumberOfQuestion);
+  const quizConfig = useQuiz((state: any) => state.config);
+  const addNumberOfQuestion = useQuiz(
+    (state: any) => state.addNumberOfQuestion
+  );
   console.log(quizConfig, "here");
   return (
     <section className="flex flex-col justify-center items-center my-10">

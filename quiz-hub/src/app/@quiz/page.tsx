@@ -38,7 +38,7 @@ export default function Quiz() {
       selectedAnswer
         ? {
             ...prev,
-            score: prev.score + 5,
+            score: prev.score + 1,
             correctAnswers: prev.correctAnswers + 1,
           }
         : {
@@ -60,12 +60,18 @@ export default function Quiz() {
         <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
           Question Number :
           <span className="text-blue-600 dark:text-blue-500">
-            {" "}
-            {activeQuestion}
+            {!showResult ? activeQuestion : questions.length - 1}
           </span>
           .
         </h1>
-        <p className="text-xl">Score: {(result.score / 25) * 100}%</p>
+        <h1 className="mb-4 text-3xl font-extrabold text-gray-900 dark:text-white md:text-5xl lg:text-6xl">
+          <span className="text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400">
+            Your Score:
+          </span>{" "}
+          {result.score}
+        </h1>
+
+        {/* <p className="text-xl">Score: {(result.score / 25) * 100}%</p> */}
         {!showResult ? (
           <section className="shadow-2xl my-10 p-10 w-[90%] rounder-lg flext flex-col justify-center item-center shadow-blue-200">
             <h4 className="mb-4 text-2xl font-extrabold leading-none tracking-tight text-blue-600 dark:text-blue-500 md:text-4xl lg:text-6xl">
