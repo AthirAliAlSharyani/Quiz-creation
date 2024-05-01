@@ -16,7 +16,7 @@ export default function InputBox() {
           type="number"
           defaultValue={5}
           max={10}
-          min={5}
+          min={3}
           onChange={(e: React.FormEvent<HTMLInputElement>) =>
             addQuestionNumber(e.currentTarget.value ?? "")
           }
