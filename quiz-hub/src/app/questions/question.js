@@ -2,6 +2,7 @@
 const questions = [
     // true/false
     {
+       question_type:'true/false',
         level:'Easy',
         id: 60,
         question_category: 'Sciences',
@@ -10,6 +11,7 @@ const questions = [
         correctAnswer: 'False',
       },
       {
+       question_type:'true/false',
         level:'Medium',
         id: 61,
         question_category: 'Sciences',
@@ -18,6 +20,7 @@ const questions = [
         correctAnswer: 'False',
       },
       {
+       question_type:'true/false',
         level:'Medium',
         id: 62,
         question_category: 'Sciences',
@@ -26,6 +29,7 @@ const questions = [
         correctAnswer: 'False',
       },
       {
+       question_type:'true/false',
         level:'Medium',
         id: 63,
         question_category: 'Sciences',
@@ -34,6 +38,7 @@ const questions = [
         correctAnswer: 'False',
       },
       {
+       question_type:'true/false',
         level:'Medium',
         id: 64,
         question_category: 'Sciences',
@@ -42,6 +47,7 @@ const questions = [
         correctAnswer: 'True',
       },
       {
+       question_type:'true/false',
         level:'Easy',
         id: 65,
         question_category: 'Sciences',
@@ -50,6 +56,7 @@ const questions = [
         correctAnswer: 'False',
       },
       {
+       question_type:'true/false',
         level:'Medium',
         id: 66,
         question_category: 'Sciences',
@@ -58,6 +65,7 @@ const questions = [
         correctAnswer: 'True',
       },
       {
+       question_type:'true/false',
         level:'Medium',
         id: 67,
         question_category: 'Sciences',
@@ -66,6 +74,7 @@ const questions = [
         correctAnswer: 'True',
       },
       {
+       question_type:'true/false',
         level:'Medium',
         id: 68,
         question_category: 'Sciences',
@@ -74,6 +83,7 @@ const questions = [
         correctAnswer: 'False',
       },
       {
+       question_type:'true/false',
         level:'Medium',
         id: 69,
         question_category: 'Sciences',
@@ -82,6 +92,7 @@ const questions = [
         correctAnswer: 'True',
       },
       {
+       question_type:'true/false',
         level:'Medium',
         id: 70,
         question_category: 'History',
@@ -90,6 +101,7 @@ const questions = [
         correctAnswer: 'False',
       },
       {
+       question_type:'true/false',
         level:'Easy',
         id: 71,
         question_category: 'History',
@@ -98,6 +110,7 @@ const questions = [
         correctAnswer: 'False',
       },
       {
+       question_type:'true/false',
         level:'Medium',
         id: 72,
         question_category: 'History',
@@ -106,6 +119,7 @@ const questions = [
         correctAnswer: 'True',
       },
       {
+       question_type:'true/false',
         level:'Medium',
         id: 73,
         question_category: 'History',
@@ -114,6 +128,7 @@ const questions = [
         correctAnswer: 'True',
       },
       {
+       question_type:'true/false',
         level:'Medium',
         id: 74,
         question_category: 'History',
@@ -122,6 +137,7 @@ const questions = [
         correctAnswer: 'True',
       },
       {
+       question_type:'true/false',
         level:'Medium',
         id: 75,
         question_category: 'History',
@@ -130,6 +146,7 @@ const questions = [
         correctAnswer: 'False',
       },
       {
+       question_type:'true/false',
         level:'Easy',
         id: 76,
         question_category: 'History',
@@ -138,6 +155,7 @@ const questions = [
         correctAnswer: 'False',
       },
       {
+       question_type:'true/false',
         level:'Medium',
         id: 77,
         question_category: 'History',
@@ -146,6 +164,7 @@ const questions = [
         correctAnswer: 'True',
       },
       {
+       question_type:'true/false',
         level:'Medium',
         id: 78,
         question_category: 'History',
@@ -154,6 +173,7 @@ const questions = [
         correctAnswer: 'True',
       },
       {
+       question_type:'true/false',
         level:'Easy',
         id: 79,
         question_category: 'History',
@@ -163,6 +183,7 @@ const questions = [
       },
     
     {
+       question_type:'true/false',
         level:'Hard',
       id: 40,
       question_category: 'Arts',
@@ -171,6 +192,7 @@ const questions = [
       correctAnswer: 'False',
     },
     {
+       question_type:'true/false',
         level:'Easy',
       id: 41,
       question_category: 'Arts',
@@ -179,6 +201,7 @@ const questions = [
       correctAnswer: 'True',
     },
     {
+       question_type:'true/false',
         level:'Hard',
       id: 42,
       question_category: 'Arts',
@@ -187,6 +210,7 @@ const questions = [
       correctAnswer: 'True',
     },
     {
+       question_type:'true/false',
         level:'Hard',
       id: 43,
       question_category: 'Arts',
@@ -195,6 +219,7 @@ const questions = [
       correctAnswer: 'True',
     },
     {
+       question_type:'true/false',
         level:'Hard',
       id: 44,
       question_category: 'Arts',
@@ -203,6 +228,7 @@ const questions = [
       correctAnswer: 'True',
     },
     {
+       question_type:'true/false',
         level:'Hard',
       id: 45,
       question_category: 'Arts',
@@ -211,6 +237,7 @@ const questions = [
       correctAnswer: 'True',
     },
     {
+       question_type:'true/false',
         level:'Hard',
       id: 46,
       question_category: 'Arts',
@@ -219,6 +246,7 @@ const questions = [
       correctAnswer: 'False',
     },
     {
+       question_type:'true/false',
         level:'Hard',
       id: 47,
       question_category: 'Arts',
@@ -227,6 +255,7 @@ const questions = [
       correctAnswer: 'False',
     },
     {
+       question_type:'true/false',
         level:'Hard',
       id: 48,
       question_category: 'Arts',
@@ -235,6 +264,7 @@ const questions = [
       correctAnswer: 'True',
     },
     {
+       question_type:'true/false',
         level:'Easy',
       id: 49,
       question_category: 'Arts',
@@ -243,6 +273,7 @@ const questions = [
       correctAnswer: 'True',
     },
     {
+       question_type:'true/false',
         level:'Hard',
       id: 50,
       question_category: 'Technology',
@@ -254,6 +285,7 @@ const questions = [
         level:'Hard',
       id: 51,
       question_category: 'Technology',
+      question_type:'true/false',
       question: 'Email was invented before the World Wide Web.',
       answers: ['True', 'False'],
       correctAnswer: 'True',
@@ -262,6 +294,7 @@ const questions = [
         level:'Hard',
       id: 52,
       question_category: 'Technology',
+      question_type:'true/false',
       question: 'Bitcoin was the first cryptocurrency.',
       answers: ['True', 'False'],
       correctAnswer: 'True',
@@ -270,6 +303,7 @@ const questions = [
         level:'Easy',
       id: 53,
       question_category: 'Technology',
+      question_type:'true/false',
       question: 'HTML is used for programming web applications.',
       answers: ['True', 'False'],
       correctAnswer: 'False',
@@ -278,6 +312,7 @@ const questions = [
         level:'Hard',
       id: 54,
       question_category: 'Technology',
+      question_type:'true/false',
       question: 'The Internet and the World Wide Web are the same.',
       answers: ['True', 'False'],
       correctAnswer: 'False',
@@ -286,6 +321,7 @@ const questions = [
         level:'Easy',
       id: 55,
       question_category: 'Technology',
+      question_type:'true/false',
       question: 'Wi-Fi is an abbreviation for "Wireless Fidelity".',
       answers: ['True', 'False'],
       correctAnswer: 'True',
@@ -294,6 +330,7 @@ const questions = [
         level:'Hard',
       id: 56,
       question_category: 'Technology',
+      question_type:'true/false',
       question: 'Linux was first released in 1991 by Linus Torvalds.',
       answers: ['True', 'False'],
       correctAnswer: 'True',
@@ -302,6 +339,7 @@ const questions = [
         level:'Hard',
       id: 57,
       question_category: 'Technology',
+      question_type:'true/false',
       question: 'The first iPhone was introduced in 2007.',
       answers: ['True', 'False'],
       correctAnswer: 'True',
@@ -310,6 +348,7 @@ const questions = [
         level:'Hard',
       id: 58,
       question_category: 'Technology',
+      question_type:'true/false',
       question: 'Python is named after the snake.',
       answers: ['True', 'False'],
       correctAnswer: 'False',
@@ -318,6 +357,7 @@ const questions = [
         level:'Hard',
       id: 59,
       question_category: 'Technology',
+      question_type:'true/false',
       question: 'SSL/TLS encryption is used to secure HTTP requests and responses.',
       answers: ['True', 'False'],
       correctAnswer: 'True',

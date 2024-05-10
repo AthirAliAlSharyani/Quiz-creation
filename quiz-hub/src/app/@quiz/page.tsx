@@ -1,96 +1,69 @@
 "use client";
-
-import { cn } from "@/lib/utils";
-import { useQuizConfig } from "../store";
-import clsx from "clsx";
+// Import necessary libraries and components
 import { useEffect, useState } from "react";
+import { useQuizConfig } from "../store"; // Make sure this path is correct and the store is properly configured
 import { Skeleton } from "@/components/ui/skeleton";
 import { Player } from "@lottiefiles/react-lottie-player";
-
-type questionT = {
-  answers: string[];
-  category: string;
-  correct_answer: string;
-  incorrect_answers: string[];
-  difficulty: string;
-  type: string;
-};
+import questionsData from "@/app/questions/question"; // Ensure this path is correct
 
 export default function Quiz() {
-  const [questions, setQuestions] = useState<any>(null);
+  // State for storing quiz questions and tracking quiz status
+  const [questions, setQuestions] = useState<any>([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [answer, setAnswer] = useState("");
-  const [loading, setLoading] = useState(false);
-  const changeStatus = useQuizConfig((state: any) => state.changeStatus);
-  const config = useQuizConfig((state: any) => state.config);
-  const addLevel = useQuizConfig((state: any) => state.addLevel);
-  const addCategory = useQuizConfig((state: any) => state.addCategory);
-  const addType = useQuizConfig((state: any) => state.addType);
-  const addQuestionNumber = useQuizConfig(
-    (state: any) => state.addQuestionNumber
-  );
-  const setScore = useQuizConfig((state: any) => state.setScore);
+  const [isQuizCompleted, setIsQuizCompleted] = useState(false);
+  const [loading, setLoading] = useState(true);
 
+  // Access configuration from the global state
+  const config = useQuizConfig((state: any) => state.config);
+
+  const [score, setScore] = useState();
+
+  // Effect to load and filter questions based on configuration
   useEffect(() => {
-    async function getQuestions() {
-      setLoading(true);
-      const { results } = await (
-        await fetch(
-          `https://opentdb.com/api.php?amount=${config.numberOfQuestion}&category=${config.category.id}&difficulty=${config.level}&type=${config.type}`
-        )
-      ).json();
-      console.log(results);
-      let shuffledResults = results.map((e: questionT) => {
-        let value = [...e.incorrect_answers, e.correct_answer]
-          .map((value) => ({ value, sort: Math.random() }))
-          .sort((a, b) => a.sort - b.sort)
-          .map(({ value }) => value);
-        e.answers = [...value];
-        return e;
-      });
-      console.log(shuffledResults, "shuffeled");
-      setQuestions([...shuffledResults]);
-      setLoading(false);
-    }
-    getQuestions();
+    setLoading(true);
+    const filteredQuestions = questionsData
+      .filter(
+        (q) =>
+          q.level === config.level &&
+          q.question_category === config.category.name &&
+          q.question_type === config.type
+      )
+      .slice(0, config.numberOfQuestion);
+
+    setQuestions(filteredQuestions);
+    setLoading(false);
   }, [config.category, config.level, config.numberOfQuestion, config.type]);
 
-  const answerCheck = (ans: string) => {
-    if (ans === questions[0].correct_answer) {
-      setScore();
+  // Function to handle answer selection
+  const answerCheck = (selectedAnswer: any) => {
+    // Check if the selected answer is correct
+    if (selectedAnswer === questions[currentQuestionIndex].correct_answer) {
+      setScore((prevScore: any) => prevScore + 1); // Increment the score
     }
-    setAnswer(questions[0].correct_answer);
-  };
-  const handleNext = () => {
-    let remainingQuestions = [...questions];
-    remainingQuestions.shift();
-    setQuestions([...remainingQuestions]);
-    setAnswer("");
+    setAnswer(selectedAnswer); // Set the selected answer
   };
 
+  // Function to handle moving to the next question or completing the quiz
+  const handleNext = () => {
+    const nextIndex = currentQuestionIndex + 1;
+    if (nextIndex < questions.length) {
+      setCurrentQuestionIndex(nextIndex);
+      setAnswer("");
+    } else {
+      setIsQuizCompleted(true);
+    }
+  };
+
+  // Render component based on the current state
   return (
-    <section className="flex flex-col justify-center items-center p-20 ">
-      {questions?.length ? (
-        <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-purple-900 md:text-5xl lg:text-6xl dark:text-white">
-          Question No{" "}
-          <span className="text-purple-600 dark:text-purple-500">
-            #{config.numberOfQuestion - questions.length + 1}
-          </span>
-          .
-        </h1>
-      ) : null}
-      {loading && (
+    <section className="flex flex-col justify-center items-center p-20">
+      {loading ? (
         <div className="flex flex-col">
           <Skeleton className="w-[600px] h-[60px] my-10 rounded-sm" />
-
           <Skeleton className="w-[600px] h-[500px] rounded-sm" />
         </div>
-      )}
-
-      {!loading && !!questions?.length && (
-        <p className="text-2xl color-purple-500">Score: {config.score}</p>
-      )}
-
-      {!questions?.length && !loading && (
+      ) : isQuizCompleted ? (
         <div className="flex flex-col justify-center items-center">
           <Player
             src="https://assets6.lottiefiles.com/packages/lf20_touohxv0.json"
@@ -100,62 +73,51 @@ export default function Quiz() {
             style={{ height: "400px", width: "400px" }}
           />
           <h1 className="mt-10 text-center font-extrabold text-transparent text-8xl bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-            YOUR SCORE :{" "}
+            Your score: {score}
             <span className="font-extrabold text-transparent text-10xl bg-clip-text bg-gradient-to-r from-pink-400 to-purple-600">
               {config.score}
             </span>
           </h1>
           <button
-            onClick={() => {
-              window.location.reload();
-            }}
+            onClick={() => window.location.reload()}
             className="bg-purple-600 hover:bg-purple-400 my-10 text-white font-semibold py-2 px-10 border border-purple-400 rounded shadow"
           >
             Start Over
           </button>
         </div>
-      )}
-
-      {!questions && (
-        <p className="mt-10 text-center font-extrabold text-transparent text-md bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-          Prepare your mind to answer
-        </p>
-      )}
-      {!!questions && !!questions?.length && (
-        <section className="shadow-2xl my-10 p-10 w-[90%] rounded-lg flex flex-col justify-center items-center shadow-blue-200  ">
-          <h4 className="mb-4 text-center  text-xl font-extrabold leading-none tracking-tight md:text-2xl lg:text-4xl  text-purple-600 dark:text-purple-500">
-            {questions[0].question}
+      ) : questions.length > 0 ? (
+        <div className="shadow-2xl my-10 p-10 w-[90%] rounded-lg flex flex-col justify-center items-center shadow-blue-200">
+          <h4 className="mb-4 text-center text-xl font-extrabold leading-none tracking-tight md:text-2xl lg:text-4xl text-purple-600 dark:text-purple-500">
+            {questions[currentQuestionIndex].question}
           </h4>
           <div className="flex justify-evenly items-center w-full my-20 flex-wrap">
-            {questions[0].answers.map((e: string) => {
-              return (
-                <button
-                  key={e}
-                  onClick={() => answerCheck(e)}
-                  className={cn(
-                    "w-[40%] my-4 bg-white hover:bg-purple-600 hover:text-purple-100  text-purple-800 font-semibold py-4 px-4 shadow-pruple-100   rounded-lg shadow-xl",
-                    {
-                      "bg-green-600": !!answer && answer === e,
-                      "bg-red-600": !!answer && answer !== e,
-                      "hover:bg-green-600": !!answer && answer === e,
-                      "hover:bg-red-600": !!answer && answer !== e,
-                      "text-gray-200": !!answer,
-                    }
-                  )}
-                >
-                  {e}
-                </button>
-              );
-            })}
+            {questions[currentQuestionIndex].answers.map((e: any, idx: any) => (
+              <button
+                key={idx}
+                onClick={() => !answer && answerCheck(e)}
+                className={`w-[40%] my-4 bg-white hover:bg-purple-600 hover:text-purple-100 text-purple-800 font-semibold py-4 px-4 rounded-lg shadow-xl ${
+                  answer === questions.correctAnswer
+                    ? "focus:bg-green-600 text-gray-200"
+                    : "focus:hover:bg-red-600"
+                }`}
+                disabled={!!answer}
+              >
+                {e}
+              </button>
+            ))}
           </div>
-
           <button
             onClick={handleNext}
-            className="bg-purple-600 hover:bg-purple-400 text-white font-semibold py-2 px-10 border border-purple-600 rounded shadow"
+            disabled={!answer}
+            className={`bg-purple-600 hover:bg-purple-400 text-white font-semibold py-2 px-10 border border-purple-600 rounded shadow ${
+              !answer ? "opacity-50 cursor-not-allowed" : ""
+            }`}
           >
-            Next
+            {currentQuestionIndex + 1 === questions.length ? "Done" : "Next"}
           </button>
-        </section>
+        </div>
+      ) : (
+        <div>No questions available.</div>
       )}
     </section>
   );
