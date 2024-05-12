@@ -17,8 +17,7 @@ export default function Quiz() {
   // Access configuration from the global state
   const config = useQuizConfig((state: any) => state.config);
 
-  const [score, setScore] = useState();
-
+  const setScore = useQuizConfig((state: any) => state.setScore);
   // Effect to load and filter questions based on configuration
   useEffect(() => {
     setLoading(true);
@@ -36,12 +35,11 @@ export default function Quiz() {
   }, [config.category, config.level, config.numberOfQuestion, config.type]);
 
   // Function to handle answer selection
-  const answerCheck = (selectedAnswer: any) => {
-    // Check if the selected answer is correct
-    if (selectedAnswer === questions[currentQuestionIndex].correct_answer) {
-      setScore((prevScore: any) => prevScore + 1); // Increment the score
+  const answerCheck = (ans: string) => {
+    if (ans === questions[0].correct_answer) {
+      setScore();
     }
-    setAnswer(selectedAnswer); // Set the selected answer
+    setAnswer(questions[0].correct_answer);
   };
 
   // Function to handle moving to the next question or completing the quiz
@@ -73,7 +71,7 @@ export default function Quiz() {
             style={{ height: "400px", width: "400px" }}
           />
           <h1 className="mt-10 text-center font-extrabold text-transparent text-8xl bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-            Your score: {score}
+            Your score: {config.score}
             <span className="font-extrabold text-transparent text-10xl bg-clip-text bg-gradient-to-r from-pink-400 to-purple-600">
               {config.score}
             </span>
@@ -90,17 +88,24 @@ export default function Quiz() {
           <h4 className="mb-4 text-center text-xl font-extrabold leading-none tracking-tight md:text-2xl lg:text-4xl text-purple-600 dark:text-purple-500">
             {questions[currentQuestionIndex].question}
           </h4>
+
+          <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-purple-900 md:text-5xl lg:text-6xl dark:text-white">
+            Question No{" "}
+            <span className="text-purple-600 dark:text-purple-500">
+              #{config.numberOfQuestion - questions.length + 1}
+            </span>
+            .
+          </h1>
+
           <div className="flex justify-evenly items-center w-full my-20 flex-wrap">
-            {questions[currentQuestionIndex].answers.map((e: any, idx: any) => (
+            {questions[currentQuestionIndex].answers.map((e, idx) => (
               <button
                 key={idx}
-                onClick={() => !answer && answerCheck(e)}
-                className={`w-[40%] my-4 bg-white hover:bg-purple-600 hover:text-purple-100 text-purple-800 font-semibold py-4 px-4 rounded-lg shadow-xl ${
-                  answer === questions.correctAnswer
-                    ? "focus:bg-green-600 text-gray-200"
-                    : "focus:hover:bg-red-600"
-                }`}
-                disabled={!!answer}
+                onClick={() => answerCheck(e)}
+                disabled={!!answer} // Disable further interaction after an answer is selected
+                className={`w-[40%] my-4 bg-white hover:bg-purple-600 hover:text-purple-100 text-purple-800 font-semibold py-4 px-4 rounded-lg shadow-xl 
+              
+             }`}
               >
                 {e}
               </button>
@@ -108,10 +113,10 @@ export default function Quiz() {
           </div>
           <button
             onClick={handleNext}
-            disabled={!answer}
-            className={`bg-purple-600 hover:bg-purple-400 text-white font-semibold py-2 px-10 border border-purple-600 rounded shadow ${
-              !answer ? "opacity-50 cursor-not-allowed" : ""
-            }`}
+            disabled={!answer} // Enable the "Next" button only if an answer has been selected
+            className={`mt-4 bg-purple-600 hover:bg-purple-400 text-white font-semibold py-2 px-10 border border-purple-600 rounded shadow 
+    
+  }`}
           >
             {currentQuestionIndex + 1 === questions.length ? "Done" : "Next"}
           </button>
