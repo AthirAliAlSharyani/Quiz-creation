@@ -135,7 +135,7 @@ export default function Quiz() {
                 key={idx}
                 onClick={() => handleAnswer(answer)}
                 // Disable further interaction after an answer is selected
-                className={`w-[40%] my-4 bg-white hover:bg-purple-600  focus:bg-lime-300 focus:text-black hover:text-purple-100 text-purple-800 font-semibold py-4 px-4 rounded-lg shadow-xl 
+                className={`w-[40%] my-4 bg-white hover:bg-purple-600  focus:bg-purple-800 focus:text-white hover:text-purple-100 text-purple-800 font-semibold py-4 px-4 rounded-lg shadow-xl 
               
              }`}
               >
