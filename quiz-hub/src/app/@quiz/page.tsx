@@ -97,7 +97,10 @@ export default function Quiz() {
 
           <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-purple-900 md:text-5xl lg:text-6xl dark:text-white">
             Question No{" "}
-            <span className="text-purple-600 dark:text-purple-500">#</span>.
+            <span className="text-purple-600 dark:text-purple-500">
+              #{currentQuestionIndex + 1}
+            </span>
+            .
           </h1>
 
           <div className="flex justify-evenly items-center w-full my-20 flex-wrap">
