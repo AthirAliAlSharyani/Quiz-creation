@@ -36,19 +36,45 @@ export default function Quiz() {
   // Function to handle answer selection
   const [score, setScore] = useState(0);
 
-  const handleAnswer = (selectedAnswer: any) => {
-    const currentQuestion = questions[currentQuestionIndex];
+  const [answeredCorrectly, setAnsweredCorrectly] = useState(
+    Array(questions.length).fill(false)
+  );
 
-    if (selectedAnswer === currentQuestion.correctAnswer) {
-      setScore((prevScore) => prevScore + 1); // Increment score if correct
+  const [lastAnswers, setLastAnswers] = useState(
+    Array(questions.length).fill(null)
+  );
+
+  const handleAnswer = (selectedAnswer) => {
+    const currentQuestion = questions[currentQuestionIndex];
+    const isAnswerCorrect = selectedAnswer === currentQuestion.correctAnswer;
+
+    // Check if this question was previously answered (lastAnswers[currentQuestionIndex] is not null)
+    // and if the last answer was correct
+    if (lastAnswers[currentQuestionIndex] !== null) {
+      if (
+        lastAnswers[currentQuestionIndex] === currentQuestion.correctAnswer &&
+        !isAnswerCorrect
+      ) {
+        // If previously correct but now incorrect, decrease score
+        setScore((prevScore) => prevScore - 1);
+      } else if (
+        lastAnswers[currentQuestionIndex] !== currentQuestion.correctAnswer &&
+        isAnswerCorrect
+      ) {
+        // If previously incorrect but now correct, increase score
+        setScore((prevScore) => prevScore + 1);
+      }
+    } else {
+      // If this is the first answer given for this question
+      if (isAnswerCorrect) {
+        setScore((prevScore) => prevScore + 1);
+      }
     }
 
-    const answerCheck = (ans: string) => {
-      if (ans === questions.correct_answer) {
-        setScore(score + 1); // Correct way to update the score
-      }
-      setAnswer(questions[currentQuestionIndex].correct_answer);
-    };
+    // Update the last answer given for this question
+    const updatedLastAnswers = [...lastAnswers];
+    updatedLastAnswers[currentQuestionIndex] = selectedAnswer;
+    setLastAnswers(updatedLastAnswers);
   };
   // Function to handle moving to the next question or completing the quiz
   const handleNext = () => {
@@ -128,7 +154,46 @@ export default function Quiz() {
           </button>
         </div>
       ) : (
-        <div>No questions available.</div>
+        <div className="  font-sans text-lg leading-relaxed justify-center border-2 border-cyan-200">
+          <center>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              className="w-20 h-20 text-red-600 mt-3"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 9v3m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+          </center>
+          <h2 className=" justify-center m-5 font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-600 text-3xl">
+            You either did not choose any question category
+            <br />
+            OR there are no available questions for the selected category.
+            <br />
+            <center> Please try again!</center>
+          </h2>
+          <center>
+            <a href="/">
+              {" "}
+              <button
+                className={`m-10 bg-purple-600 hover:bg-purple-400 text-white font-semibold py-2 px-10 border border-purple-600 rounded shadow `}
+              >
+                Back
+              </button>
+            </a>
+          </center>
+        </div>
+        //   <h2 className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-600">
+        //     You either not choose any question category OR no available
+        //     questions for the selected category. please try again!
+        //   </h2>
+        // </div>
       )}
     </section>
   );
