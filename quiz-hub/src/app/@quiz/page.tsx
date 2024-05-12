@@ -17,7 +17,6 @@ export default function Quiz() {
   // Access configuration from the global state
   const config = useQuizConfig((state: any) => state.config);
 
-  const setScore = useQuizConfig((state: any) => state.setScore);
   // Effect to load and filter questions based on configuration
   useEffect(() => {
     setLoading(true);
@@ -35,13 +34,29 @@ export default function Quiz() {
   }, [config.category, config.level, config.numberOfQuestion, config.type]);
 
   // Function to handle answer selection
-  const answerCheck = (ans: string) => {
-    if (ans === questions[0].correct_answer) {
-      setScore();
-    }
-    setAnswer(questions[0].correct_answer);
-  };
+  const [score, setScore] = useState(0);
 
+  const handleAnswer = (selectedAnswer: any) => {
+    const currentQuestion = questions[currentQuestionIndex];
+
+    if (selectedAnswer === currentQuestion.correctAnswer) {
+      setScore((prevScore) => prevScore + 1); // Increment score if correct
+    }
+
+    const answerCheck = (ans: string) => {
+      if (ans === questions.correct_answer) {
+        setScore(score + 1); // Correct way to update the score
+      }
+      setAnswer(questions[currentQuestionIndex].correct_answer);
+    };
+
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+    } else {
+      // Handle end of quiz scenario, e.g., show score or reset quiz
+      console.log("Quiz finished. Final score:", score);
+    }
+  };
   // Function to handle moving to the next question or completing the quiz
   const handleNext = () => {
     const nextIndex = currentQuestionIndex + 1;
@@ -71,9 +86,9 @@ export default function Quiz() {
             style={{ height: "400px", width: "400px" }}
           />
           <h1 className="mt-10 text-center font-extrabold text-transparent text-8xl bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-            Your score: {config.score}
+            Your score:
             <span className="font-extrabold text-transparent text-10xl bg-clip-text bg-gradient-to-r from-pink-400 to-purple-600">
-              {config.score}
+              {score}
             </span>
           </h1>
           <button
@@ -98,22 +113,22 @@ export default function Quiz() {
           </h1>
 
           <div className="flex justify-evenly items-center w-full my-20 flex-wrap">
-            {questions[currentQuestionIndex].answers.map((e, idx) => (
+            {questions[currentQuestionIndex].answers.map((answer, idx) => (
               <button
                 key={idx}
-                onClick={() => answerCheck(e)}
-                disabled={!!answer} // Disable further interaction after an answer is selected
-                className={`w-[40%] my-4 bg-white hover:bg-purple-600 hover:text-purple-100 text-purple-800 font-semibold py-4 px-4 rounded-lg shadow-xl 
+                onClick={() => handleAnswer(answer)}
+                // Disable further interaction after an answer is selected
+                className={`w-[40%] my-4 bg-white hover:bg-purple-600  focus:bg-lime-300 focus:text-black hover:text-purple-100 text-purple-800 font-semibold py-4 px-4 rounded-lg shadow-xl 
               
              }`}
               >
-                {e}
+                {answer}
               </button>
             ))}
           </div>
           <button
             onClick={handleNext}
-            disabled={!answer} // Enable the "Next" button only if an answer has been selected
+            // Enable the "Next" button only if an answer has been selected
             className={`mt-4 bg-purple-600 hover:bg-purple-400 text-white font-semibold py-2 px-10 border border-purple-600 rounded shadow 
     
   }`}
